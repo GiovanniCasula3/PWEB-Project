@@ -1,9 +1,7 @@
 from app.config import config
 
-
 from pathlib import Path
 import os
-
 
 if Path(__file__).parent == Path(os.getcwd()):
     config.root_dir = "."
