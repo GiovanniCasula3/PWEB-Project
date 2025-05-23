@@ -15,14 +15,12 @@ from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 from app.data.db import init_database
 
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # on start
     init_database()
     yield
     # on close
-
 
 app = FastAPI(lifespan=lifespan)
 app.mount(
@@ -34,7 +32,6 @@ app.include_router(frontend.router)
 app.include_router(events.router)
 app.include_router(users.router)
 app.include_router(registrations.router)
-
 
 if __name__ == "__main__":
     import uvicorn
