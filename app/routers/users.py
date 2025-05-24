@@ -1,6 +1,6 @@
-from fastapi import APIRouter, Request, HTTPException, Path, Form #HTTPException serve per gestire le eccezioni
+from fastapi import APIRouter, Request, HTTPException, Path, Form
 from app.models.user import UserCreate, User, UserPublic
-from typing import Annotated # Annotated serve per annotare i parametri, definire il tipo di dato e
+from typing import Annotated
 from app.data.db import SessionDep
 from sqlmodel import select, delete
 

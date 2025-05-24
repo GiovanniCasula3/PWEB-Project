@@ -1,6 +1,6 @@
-from sqlmodel import SQLModel, Field #Importa le classi necessarie da SQLModel
-from typing import Annotated #Consente di usare annotazioni per i tipi
-from datetime import datetime #Importa la classe datetime per gestire le date e le ore
+from sqlmodel import SQLModel, Field
+from typing import Annotated
+from datetime import datetime
 
 class EventBase(SQLModel):
     """
