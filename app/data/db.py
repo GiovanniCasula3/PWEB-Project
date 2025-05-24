@@ -20,8 +20,35 @@ def init_database() -> None:
     if not ds_exists:
         f = Faker("it_IT")
         with Session(engine) as session:
-            # TODO: (optional) initialize the database with fake data
-            ...
+            for i in range(10):
+                user = User(
+                    username=f.user_name(),
+                    email=f.email(),
+                    full_name=f.name(),
+                    password=f.password()
+                )
+                session.add(user)
+            session.commit()
+            for i in range(10):
+                event = Event(
+                    title=f.sentence(),
+                    description=f.text(),
+                    date=f.date_time_this_year(),
+                    location=f.city()
+                )
+                session.add(event)
+            session.commit()
+            statement = select(User)
+            users = session.exec(statement).all()
+            statement = select(Event)
+            events = session.exec(statement).all()
+            for i in range(10):
+                registration = Registration(
+                    username=users[f.random_int(min=0, max=len(users) - 1)].username,
+                    event_id=events[i].id
+                )
+                session.add(registration)
+            session.commit()
 
 def get_session():
     with Session(engine) as session:
