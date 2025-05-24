@@ -2,11 +2,11 @@ from fastapi import APIRouter, HTTPException, Path, Form, Request
 from sqlmodel import select, delete
 from app.data.db import SessionDep
 from typing import Annotated
-from app.models.event import Event, EventCreate, EventPublic
+from app.models.event import Event, EventCreate
 from app.models.user import User, UserCreate
 from app.models.registration import Registration
 
-router = APIRouter(prefix='/events')
+router = APIRouter(prefix='/events', tags=['Events'])
 
 @router.put('/{id}')
 def update_event(
@@ -14,7 +14,7 @@ def update_event(
     id: Annotated[int, Path(description='The Id of the event to update')],
     newevent: EventCreate
 ):
-    """ Update a event by the given id"""
+    """ Aggiorna un evento esistente. """
     event = session.get(event, id)
     if event is None:
         raise HTTPException(status_code=404, detail='Event non found')
@@ -27,11 +27,11 @@ def update_event(
     return 'Event successfully updated.'
 
 @router.delete('/{id}')
-def delete_book(
+def delete_event(
     session: SessionDep,
     id: Annotated[int, Path(description='The id of the event to delete')]
 ):
-    """ Deleete the event by the give id"""
+    """ Elimina un evento esistente. """
     event = session.get(Event, id)
     if event is None:
         raise HTTPException(status_code=404, detail='Event not found')
@@ -46,7 +46,7 @@ def register(
     user: Annotated[str, Path(description='The username of the user')],
     session: SessionDep
 ):
-    """ Register for a event"""
+    """ Registra un utente per l'evento dato. """
     event = session.get(Event, id)
     if event is None:
         raise HTTPException(status_code=404, detail='Event not found')
@@ -64,6 +64,7 @@ def register(
 # GET /events/
 @router.get("/", response_model=list[EventPublic])
 def get_all_events(session: SessionDep, request: Request):
+    """ Restituisci la lista degli eventi esistenti. """
     statement = select(Event)
     events = session.exec(statement).all()
     return events
@@ -74,6 +75,7 @@ def get_event_by_id(
     session: SessionDep,
     id: Annotated[int, Path(description="The ID of the event to retrieve.")]
 ):
+    """ Restituisci l'evento con l'id dato. """
     event = session.get(Event, id)
     if event is None:
         raise HTTPException(status_code=404, detail="Event not found")
@@ -82,6 +84,7 @@ def get_event_by_id(
 # POST /events/
 @router.post("/", response_model=EventPublic)
 def add_event(session: SessionDep, event_data: EventCreate):
+    """ Crea un nuovo evento. """
     new_event = Event.model_validate(event_data)
     session.add(new_event)
     session.commit()
@@ -91,6 +94,7 @@ def add_event(session: SessionDep, event_data: EventCreate):
 # DELETE /events
 @router.delete("/")
 def delete_all_events(session: SessionDep):
+    """ Elimina tutti gli eventi. """
     events = session.exec(select(Event)).all()
     if not events:
         raise HTTPException(status_code=404, detail="No events found to delete")
