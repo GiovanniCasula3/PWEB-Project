@@ -13,12 +13,6 @@ def get_all_registrations(
 ) -> list[RegistrationPublic]:
     """
     Recupera tutte le registrazioni dal database.
-
-    Args:
-        session (SessionDep): Sessione del database.
-
-    Returns:
-        list[RegistrationPublic]: Lista di registrazioni pubbliche.
     """
     statement = select(Registration)
     # Esegue la query per selezionare tutte le registrazioni
@@ -33,12 +27,6 @@ def delete_registration(
     session: SessionDep):
     """
     Cancella una registrazione esistente dato username ed event_id.
-    Args:
-        username (str): Username dell'utente.
-        event_id (int): ID dell'evento.
-        session (SessionDep): Sessione del database.
-    Returns:
-        dict: Messaggio di conferma o errore.
     """
     statement = delete(Registration).where(
         (Registration.username == username) & (Registration.event_id == event_id)
