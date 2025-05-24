@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Path, Form, Request
 from sqlmodel import select, delete
 from app.data.db import SessionDep
 from typing import Annotated
-from app.models.event import Event, EventCreate
+from app.models.event import Event, EventCreate, EventPublic
 from app.models.user import User, UserCreate
 from app.models.registration import Registration
 
