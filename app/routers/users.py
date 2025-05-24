@@ -4,7 +4,7 @@ from typing import Annotated # Annotated serve per annotare i parametri, definir
 from app.data.db import SessionDep
 from sqlmodel import select, delete
 
-router = APIRouter(prefix="/users")
+router = APIRouter(prefix="/users", tags=["Users"])
 
 @router.get("/")
 def get_all_users(
