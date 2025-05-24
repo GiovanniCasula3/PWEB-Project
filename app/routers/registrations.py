@@ -33,5 +33,5 @@ def delete_registration(
     result = session.exec(statement)
     session.commit()
     if result.rowcount == 0: # Se non sono state cancellate righe, significa che la registrazione non esiste
-        return {"detail": "Registrazione non trovata."}
-    return {"detail": "Registrazione cancellata con successo."}
+        return {"Registrazione non trovata."}
+    return {"Registrazione cancellata con successo."}
