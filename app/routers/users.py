@@ -41,7 +41,7 @@ def add_user(
     user: UserCreate,
     session: SessionDep
 ):
-    """ 
+    """
     Aggiunge un nuovo utente.
     """
     validated_user = User.model_validate(user)
@@ -54,7 +54,9 @@ def add_user(
 def delete_all_users(
     session: SessionDep
 ):
-    """ Cancella tutti gli utenti. """
+    """
+    Cancella tutti gli utenti.
+    """
     statement = delete(User)
     session.exec(statement).one_or_none()
     session.commit()
@@ -65,7 +67,9 @@ def delete_user_by_username(
     username: Annotated[str, Path(description="Username dell'utente da cancellare")],
     session: SessionDep
 ):
-    """ Cancella un utente per username dato."""
+    """
+    Cancella un utente per username dato.
+    """
     statement = select(User).where(User.username == username)
     user = session.exec(statement).one_or_none()
     if not user:
