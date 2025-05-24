@@ -12,7 +12,7 @@ router = APIRouter(prefix="/events", tags=["Events"])
 @router.get("/", response_model=list[EventPublic])
 def get_all_events(session: SessionDep, request: Request):
     """
-    Restituisci la lista degli eventi esistenti.
+    Restituisce la lista degli eventi esistenti.
     """
     statement = select(Event)
     events = session.exec(statement).all()
@@ -22,7 +22,7 @@ def get_all_events(session: SessionDep, request: Request):
 @router.get("/{id}", response_model=EventPublic)
 def get_event_by_id(
     session: SessionDep,
-    id: Annotated[int, Path(description="ID dell'evento da restituire")]
+    id: Annotated[int, Path(description="ID dell'evento")]
 ):
     """
     Restituisci l"evento con l"id dato.
@@ -47,7 +47,7 @@ def add_event(session: SessionDep, event_data: EventCreate):
 @router.post("/{id}/register")
 def register(
     request: Request,
-    id: Annotated[int, Path(description="ID dell'evento da restituire")],
+    id: Annotated[int, Path(description="ID dell'evento")],
     user: Annotated[str, Path(description="L'username dell'utente")],
     session: SessionDep
 ):
