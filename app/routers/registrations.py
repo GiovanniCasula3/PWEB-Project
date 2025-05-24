@@ -1,7 +1,6 @@
 from fastapi import APIRouter # Serve per definire le rotte API
 from sqlmodel import delete, select # Serve per interagire con il database
 from app.data.db import SessionDep # Importa la dipendenza per ottenere una sessione del database
-
 from app.models.registration import Registration # Importa il modello di registrazione pubblica
 from app.models.registration import RegistrationPublic # Importa il modello di registrazione pubblica
 
