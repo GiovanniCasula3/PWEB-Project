@@ -12,3 +12,9 @@ class RegistrationPublic(Registration):
     Estende Registration e include i campi necessari per la visualizzazione pubblica.
     """
     pass
+
+class RegistrationCreate(Registration):
+    """
+    Modello per la creazione di una nuova registrazione, estende Registration senza ID.
+    """
+    pass  # Non ha bisogno di ulteriori campi, poiché eredita tutto da Registration
