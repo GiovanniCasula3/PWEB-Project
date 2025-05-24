@@ -5,7 +5,7 @@ from app.data.db import SessionDep # Importa la dipendenza per ottenere una sess
 from app.models.registration import Registration # Importa il modello di registrazione pubblica
 from app.models.registration import RegistrationPublic # Importa il modello di registrazione pubblica
 
-router = APIRouter(prefix="/registrations", tags=["registrations"])
+router = APIRouter(prefix="/registrations", tags=["Registrations"])
 
 @router.get("/")
 def get_all_registrations(
