@@ -1,8 +1,23 @@
 from sqlmodel import SQLModel, Field
+from sqlalchemy import Column, ForeignKey
 
 class Registration(SQLModel, table=True):
-    username: str = Field(primary_key=True, foreign_key="user.username", ondelete="CASCADE")
-    event_id: int = Field(primary_key=True, foreign_key="event.id", ondelete="CASCADE")
+    username: str = Field(
+        sa_column=Column(
+            "username",
+            str,
+            ForeignKey("user.username", onupdate="CASCADE", ondelete="CASCADE"),
+            primary_key=True
+        )
+    )
+    event_id: int = Field(
+        sa_column=Column(
+            "event_id",
+            int,
+            ForeignKey("event.id", onupdate="CASCADE", ondelete="CASCADE"),
+            primary_key=True
+        )
+    )
 
 class RegistrationPublic(Registration):
     """
