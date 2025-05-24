@@ -21,3 +21,10 @@ class UserPublic(BaseUser):
     Modello utilizzato per restituire tutti i dati degli utenti nelle risposte API.
     """
     pass
+
+class UserCreate(BaseUser):
+    """
+    Modello per la creazione di un nuovo utente, estende BaseUser senza ID.
+    """
+    pass  # Non ha bisogno di ulteriori campi, poiché eredita tutto da BaseUser
+
