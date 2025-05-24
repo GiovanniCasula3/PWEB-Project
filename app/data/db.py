@@ -31,23 +31,21 @@ def init_database() -> None:
             for i in range(10):
                 event = Event(
                     title=f.sentence(),
-                    description=f.text(),
+                    desctription=f.text(),
                     date=f.date_time_this_year(),
-                    location=f.city()
+                    location=f.city(),
                 )
                 session.add(event)
             session.commit()
-            statement = select(User)
-            users = session.exec(statement).all()
-            statement = select(Event)
-            events = session.exec(statement).all()
+            statment = select(User)
+            result = session.exec(statment)
+            users = result.all()
             for i in range(10):
                 registration = Registration(
                     username=users[f.random_int(min=0, max=len(users) - 1)].username,
-                    event_id=events[i].id
+                    event_id=f.random_int(min=1, max=10),
                 )
                 session.add(registration)
-            session.commit()
 
 def get_session():
     with Session(engine) as session:
