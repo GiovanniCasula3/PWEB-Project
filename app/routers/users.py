@@ -18,7 +18,7 @@ def get_all_users(
     statement = select(User)
     users = session.exec(statement).all()
     if sort:
-        return sorted(users, key=lambda user: user.id)
+        return sorted(users, key=lambda user: user.username)
     return list(users)
 
 @router.get("/{username}")
