@@ -107,7 +107,7 @@ Updates an existing event. Request format:
 
 Deletes an existing event.
 
-#### POST /events//register
+#### POST /events/register
 
 Register a user to the given event. Request format:
 
