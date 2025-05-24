@@ -81,11 +81,7 @@ def delete_all_events(session: SessionDep):
     """
     Elimina tutti gli eventi.
     """
-    events = session.exec(select(Event)).all()
-    if not events:
-        raise HTTPException(status_code=404, detail="Nessun evento da eliminare")
-    for event in events:
-        session.delete(event)
+    session.delete(Event)
     session.commit()
     return {"detail": "Tutti gli eventi sono stati eliminati"}
 
