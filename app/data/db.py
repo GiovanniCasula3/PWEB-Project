@@ -46,6 +46,7 @@ def init_database() -> None:
                     event_id=f.random_int(min=1, max=10),
                 )
                 session.add(registration)
+            session.commit()
 
 def get_session():
     with Session(engine) as session:
