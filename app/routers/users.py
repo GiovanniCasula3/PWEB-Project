@@ -4,7 +4,7 @@ from fastapi import APIRouter, Request, HTTPException, Path, Form #HTTPException
 from app.models.user import UserCreate, User, UserPublic
 from typing import Annotated # Annotated serve per annotare i parametri, definire il tipo di dato e
 from app.data.db import SessionDep
-from sqlmodel import select
+from sqlmodel import select, delete
 
 router = APIRouter(prefix="/users")
 
@@ -44,3 +44,27 @@ def get_user_by_username(
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return UserPublic.model_validate(user)
+
+@router.delete("/")
+def delete_all_users(
+    session: SessionDep
+):
+    """ Delete all users. """
+    statement = delete(User)
+    session.exec(statement).one_or_none()
+    session.commit()
+    return "All users successfully deleted."
+
+@router.delete("/{username}")
+def delete_user_by_username(
+    username: Annotated[str, Path(description="The username of the user to delete")],
+    session: SessionDep
+):
+    """ Delete a user by username. """
+    statement = select(User).where(User.username == username)
+    user = session.exec(statement).one_or_none()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    session.delete(user)
+    session.commit()
+    return "User successfully deleted."
