@@ -7,11 +7,13 @@ You have to implement the database and the required APIs.
 ## Install and run
 
 Create a new environment with virtualenv or conda. Activate it, then install the requirements using:
+
 ```shell
 pip install -r requirements.txt
 ```
 
 Run the application with:
+
 ```shell
 fastapi dev
 ```
@@ -19,6 +21,7 @@ fastapi dev
 You can also run the `main.py` file as a script.
 
 ## Database
+
 The system have a DB with 3 tables for storing events, users and user registrations to events.
 The latter is already implemented.
 
@@ -29,15 +32,21 @@ The code to initialize the DB and create the tables is already implemented.
 Don't forget to import the classes associated with the tables in `data/db.py`, otherwise the net tables won't be created!
 
 For the `date` attribute of the events table, you can use the datetime type:
+
 ```python
 from datetime import datetime
 ```
 
 ## APIs
+
 The system must provide the following APIs:
+
 ### /events
+
 #### GET /events
+
 Returns the list of existing events. Response format:
+
 ```json
 [
   {
@@ -49,8 +58,11 @@ Returns the list of existing events. Response format:
   }
 ]
 ```
+
 #### POST /events
+
 Creates a new event. Request format:
+
 ```json
 {
   "title": "string",
@@ -59,10 +71,15 @@ Creates a new event. Request format:
   "location": "string"
 }
 ```
+
 #### (optional) DELETE /events
+
 Deletes all events.
-#### GET /events/{id}
+
+#### GET /events/
+
 Returns the event with the given id. Response format:
+
 ```json
 {
   "title": "string",
@@ -72,8 +89,11 @@ Returns the event with the given id. Response format:
   "id": 0
 }
 ```
-#### PUT /events/{id}
+
+#### PUT /events/
+
 Updates an existing event. Request format:
+
 ```json
 {
   "title": "string",
@@ -82,10 +102,15 @@ Updates an existing event. Request format:
   "location": "string"
 }
 ```
-#### (optional) DELETE /events/{id}
+
+#### (optional) DELETE /events/
+
 Deletes an existing event.
-#### POST /events/{id}/register
+
+#### POST /events//register
+
 Register a user to the given event. Request format:
+
 ```json
 {
   "username": "string",
@@ -93,9 +118,13 @@ Register a user to the given event. Request format:
   "email": "string"
 }
 ```
+
 ### /users
+
 #### GET /users
+
 Returns the list of existing users. Response format:
+
 ```json
 [
   {
@@ -105,8 +134,11 @@ Returns the list of existing users. Response format:
   }
 ]
 ```
-#### POST /users
+
+1. POST /users
+
 Creates a new user. Request format:
+
 ```json
 {
   "username": "string",
@@ -114,10 +146,15 @@ Creates a new user. Request format:
   "email": "string"
 }
 ```
+
 #### (optional) DELETE /users
+
 Deletes all users.
-#### GET /users/{username}
+
+#### GET /users/
+
 Returns the user with the given username. Response format:
+
 ```json
 {
   "username": "string",
@@ -125,11 +162,17 @@ Returns the user with the given username. Response format:
   "email": "string"
 }
 ```
-#### (optional) DELETE /users/{username}
+
+#### (optional) DELETE /users/
+
 Deletes an existing user.
+
 ### /registrations
+
 #### GET /registrations
+
 Returns the list of existing registrations. Response format:
+
 ```json
 [
   {
@@ -138,5 +181,7 @@ Returns the list of existing registrations. Response format:
   }
 ]
 ```
-#### (optional) DELETE /registrations/?username={username}&event_id={event_id}
+
+#### (optional) DELETE /registrations/?username=&event_id=
+
 Deletes an existing registration.

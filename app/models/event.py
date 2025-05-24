@@ -10,11 +10,11 @@ class EventBase(SQLModel):
     desctription: str
     date: datetime
     location: str
-    
+
 class Event(EventBase, table=True):
     """Modello di evento che estende EventBase e rappresenta una tabella nel database."""
     id: int = Field(default=None, primary_key=True) # Campo ID che funge da chiave primaria, con valore predefinito None e marcato come chiave primaria
-   
+
 
 class EventCreate(EventBase): # Modello per la creazione di un nuovo evento 
     """Modello per la creazione di un nuovo evento, estende EventBase senza ID."""
