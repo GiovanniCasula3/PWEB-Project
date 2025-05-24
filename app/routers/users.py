@@ -21,6 +21,20 @@ def get_all_users(
         return sorted(users, key=lambda user: user.id)
     return list(users)
 
+@router.get("/{username}")
+def get_user_by_username(
+    username: Annotated[str, Path(description="Username dell'utente da recuperare")],
+    session: SessionDep
+) -> UserPublic:
+    """
+    Ottieni un utente per username dato.
+    """
+    statement = select(User).where(User.username == username)
+    user = session.exec(statement).one_or_none()
+    if not user:
+        raise HTTPException(status_code=404, detail="User non trovato!")
+    return UserPublic.model_validate(user)
+
 @router.post("/")
 def add_user(
     request: Request,
@@ -35,19 +49,6 @@ def add_user(
     session.commit()
     return "User aggiunto con successo."
 
-@router.get("/{username}")
-def get_user_by_username(
-    username: Annotated[str, Path(description="Username dell'utente da recuperare")],
-    session: SessionDep
-) -> UserPublic:
-    """
-    Ottieni un utente per username dato.
-    """
-    statement = select(User).where(User.username == username)
-    user = session.exec(statement).one_or_none()
-    if not user:
-        raise HTTPException(status_code=404, detail="User non trovato!")
-    return UserPublic.model_validate(user)
 
 @router.delete("/")
 def delete_all_users(
