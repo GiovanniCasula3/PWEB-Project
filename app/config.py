@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 class _Config:
     def __init__(self):
         self._root_dir: Path = Path("app")
@@ -12,6 +11,5 @@ class _Config:
     @root_dir.setter
     def root_dir(self, value: str | Path) -> None:
         self._root_dir = Path(value)
-
 
 config: _Config = _Config()

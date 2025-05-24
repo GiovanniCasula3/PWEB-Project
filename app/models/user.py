@@ -20,7 +20,6 @@ class UserPublic(BaseUser):
     """
     pass
 
-
 class UserCreate(BaseUser):
     """
     Modello per la creazione di un nuovo utente
