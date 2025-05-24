@@ -6,7 +6,7 @@ from app.models.event import Event, EventCreate
 from app.models.user import User, UserCreate
 from app.models.registration import Registration
 
-router = APIRouter(prefix='/events')
+router = APIRouter(prefix='/events', tags=['Events'])
 
 @router.put('/{id}')
 def update_event(
