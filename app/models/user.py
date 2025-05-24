@@ -20,7 +20,7 @@ class UserPublic(BaseUser):
     """
     Modello utilizzato per restituire tutti i dati degli utenti nelle risposte API.
     """
-    pass
+    username: str 
 
 class UserCreate(BaseUser):
     """
