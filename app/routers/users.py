@@ -12,7 +12,9 @@ def get_all_users(
     request: Request,
     sort: bool = False
 ) -> list[UserPublic]:
-    """ Get all users. """
+    """
+    Ottieni la lista di tutti gli utenti.
+    """
     statement = select(User)
     users = session.exec(statement).all()
     if sort:
@@ -25,44 +27,48 @@ def add_user(
     user: UserCreate,
     session: SessionDep
 ):
-    """ Add a new user. """
+    """ 
+    Aggiunge un nuovo utente.
+    """
     validated_user = User.model_validate(user)
     session.add(validated_user)
     session.commit()
-    return "User successfully added."
+    return "User aggiunto con successo."
 
 @router.get("/{username}")
 def get_user_by_username(
-    username: Annotated[str, Path(description="The username of the user to retrieve")],
+    username: Annotated[str, Path(description="Username dell'utente da recuperare")],
     session: SessionDep
 ) -> UserPublic:
-    """ Get a user by username. """
+    """
+    Ottieni un utente per username dato.
+    """
     statement = select(User).where(User.username == username)
     user = session.exec(statement).one_or_none()
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=404, detail="User non trovato!")
     return UserPublic.model_validate(user)
 
 @router.delete("/")
 def delete_all_users(
     session: SessionDep
 ):
-    """ Delete all users. """
+    """ Cancella tutti gli utenti. """
     statement = delete(User)
     session.exec(statement).one_or_none()
     session.commit()
-    return "All users successfully deleted."
+    return "Tutti gli utenti sono stati cancellati."
 
 @router.delete("/{username}")
 def delete_user_by_username(
-    username: Annotated[str, Path(description="The username of the user to delete")],
+    username: Annotated[str, Path(description="Username dell'utente da cancellare")],
     session: SessionDep
 ):
-    """ Delete a user by username. """
+    """ Cancella un utente per username dato."""
     statement = select(User).where(User.username == username)
     user = session.exec(statement).one_or_none()
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=404, detail="User non trovato!")
     session.delete(user)
     session.commit()
-    return "User successfully deleted."
+    return "User cancellato con successo."
