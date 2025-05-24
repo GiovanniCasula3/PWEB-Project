@@ -1,10 +1,11 @@
-from fastapi import APIRouter, HTTPException, Path, Form, Request
+from fastapi import APIRouter, HTTPException, Path, Request
 from sqlmodel import select, delete
 from app.data.db import SessionDep
 from typing import Annotated
 from app.models.event import Event, EventCreate, EventPublic
-from app.models.user import User, UserCreate
+from app.models.user import User
 from app.models.registration import Registration
+from app.models.username import Username
 
 router = APIRouter(prefix="/events", tags=["Events"])
 
@@ -48,7 +49,7 @@ def add_event(session: SessionDep, event_data: EventCreate):
 def register_event_for_user(
     request: Request,
     id: Annotated[int, Path(description="ID dell'evento")],
-    user: Annotated[str, Path(description="L'username dell'utente")],
+    user: Username,
     session: SessionDep
 ):
     """
