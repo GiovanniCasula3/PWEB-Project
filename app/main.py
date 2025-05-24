@@ -1,17 +1,14 @@
 from app.config import config
-
 from pathlib import Path
 import os
-
-if Path(__file__).parent == Path(os.getcwd()):
-    config.root_dir = "."
-
-
 from fastapi import FastAPI
 from app.routers import frontend, events, users, registrations
 from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 from app.data.db import init_database
+
+if Path(__file__).parent == Path(os.getcwd()):
+    config.root_dir = "."
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
