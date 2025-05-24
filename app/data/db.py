@@ -24,8 +24,7 @@ def init_database() -> None:
                 user = User(
                     username=f.user_name(),
                     email=f.email(),
-                    full_name=f.name(),
-                    password=f.password()
+                    name=f.name(),
                 )
                 session.add(user)
             session.commit()
