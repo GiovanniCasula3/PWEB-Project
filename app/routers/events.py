@@ -81,7 +81,8 @@ def delete_all_events(session: SessionDep):
     """
     Elimina tutti gli eventi.
     """
-    session.delete(Event)
+    statement = delete(Event)
+    session.exec(statement)
     session.commit()
     return {"detail": "Tutti gli eventi sono stati eliminati"}
 
