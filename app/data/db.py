@@ -8,7 +8,6 @@ from app.models.event import Event
 from app.models.user import User
 from app.models.registration import Registration
 
-
 sqlite_file_name = config.root_dir / "data/database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 connect_args = {"check_same_thread": False}
@@ -24,10 +23,8 @@ def init_database() -> None:
             # TODO: (optional) initialize the database with fake data
             ...
 
-
 def get_session():
     with Session(engine) as session:
         yield session
-
 
 SessionDep = Annotated[Session, Depends(get_session)]
