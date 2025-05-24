@@ -30,7 +30,7 @@ def init_database() -> None:
             for i in range(10):
                 event = Event(
                     title=f.sentence(),
-                    desctription=f.text(),
+                    description=f.text(),
                     date=f.date_time_this_year(),
                     location=f.city(),
                 )
