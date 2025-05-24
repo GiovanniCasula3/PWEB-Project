@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Request, HTTPException, Path, Form #HTTPException serve per gestire le eccezioni
 from app.models.user import UserCreate, User, UserPublic
 from typing import Annotated # Annotated serve per annotare i parametri, definire il tipo di dato e
-from data.db import SessionDep
+from app.data.db import SessionDep
 from sqlmodel import select
 
 router = APIRouter(prefix="/users")
