@@ -11,12 +11,18 @@ router = APIRouter(prefix="/events", tags=["Events"])
 
 # GET /events/
 @router.get("/", response_model=list[EventPublic])
-def get_all_events(session: SessionDep, request: Request):
+def get_all_events(
+    session: SessionDep,
+    request: Request,
+    sort: bool = False
+    ):
     """
     Restituisce la lista degli eventi esistenti.
     """
     statement = select(Event)
     events = session.exec(statement).all()
+    if sort:
+        return sorted(events, key=lambda event: event.title)
     return events
 
 # GET /events/{id}
