@@ -56,7 +56,7 @@ def delete_all_users(
 ):
     """ Cancella tutti gli utenti. """
     statement = delete(User)
-    session.exec(statement).one_or_none()
+    session.exec(statement)
     session.commit()
     return "Tutti gli utenti sono stati cancellati."
 
