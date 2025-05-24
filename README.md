@@ -29,7 +29,7 @@ An event must be uniquely identified by its ID, that have to be automatically as
 A user must be uniquely identified by its username, that have to be automatically assigned by the system.
 
 The code to initialize the DB and create the tables is already implemented.
-Don't forget to import the classes associated with the tables in `data/db.py`, otherwise the net tables won't be created!
+Don't forget to import the classes associated with the tables in `data/db.py`, otherwise the net tables won't be created!!
 
 For the `date` attribute of the events table, you can use the datetime type:
 
