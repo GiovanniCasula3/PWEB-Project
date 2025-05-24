@@ -1,15 +1,11 @@
 from fastapi import APIRouter # Serve per definire le rotte API
 from sqlmodel import delete, select # Serve per interagire con il database
-from data.db import SessionDep # Importa la dipendenza per ottenere una sessione del database
+from app.data.db import SessionDep # Importa la dipendenza per ottenere una sessione del database
 
-from models.registration import Registration # Importa il modello di registrazione pubblica
-from models.registration import RegistrationPublic # Importa il modello di registrazione pubblica
-
-
+from app.models.registration import Registration # Importa il modello di registrazione pubblica
+from app.models.registration import RegistrationPublic # Importa il modello di registrazione pubblica
 
 routers = APIRouter(prefix="/registrations", tags=["registrations"])
-
-
 
 @routers.get("/")
 def get_all_registrations(
@@ -17,7 +13,7 @@ def get_all_registrations(
 ) -> list[RegistrationPublic]:
     """
     Recupera tutte le registrazioni dal database.
-    
+
     Args:
         session (SessionDep): Sessione del database.
 
@@ -30,12 +26,10 @@ def get_all_registrations(
     # Converte i risultati in una lista di modelli pubblici
     return results
 
-
-
 @routers.delete("/")
 def delete_registration(
-    username: str, 
-    event_id: int, 
+    username: str,
+    event_id: int,
     session: SessionDep):
     """
     Cancella una registrazione esistente dato username ed event_id.
